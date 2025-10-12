@@ -33,12 +33,10 @@ class AuthController extends Controller
     $cookieToken = $result['data']['cookieToken'];
     $cookieRefresh = $result['data']['cookieRefreshToken'];
 
-    $data = $result['data'];
-
     return ResponseFormatter::success(
       $result['message'], 
       $result['code'],
-      array_diff_key($data, array_flip(['cookieToken', 'cookieRefreshToken',]))
+      array_diff_key($result['data'], array_flip(['cookieToken', 'cookieRefreshToken',]))
     )->cookie($cookieToken)
      ->cookie($cookieRefresh);
   }

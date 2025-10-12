@@ -3,7 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Enums\TokenAbility;
-use App\Models\User;
+use App\Models\User\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\PersonalAccessToken;
@@ -23,16 +23,21 @@ class AuthService
       ];
     }
 
-    // if ($user->status_id != 1) {
-    //   return [
-    //     "error" => true,
-    //     "code" => 403,
-    //     "message" => "El usuario está inactivo",
-    //   ];
-    // }
+    switch ($user->status_id) {
+      case 2:
+        return [
+          "error" => true,
+          "code" => 403,
+          "message" => "El usuario está inactivo",
+        ];
+    }
 
     if (!Auth::attempt($credentials)) {
-      return null;
+      return [
+        "error" => true,
+        "code" => 401,
+        "message" => "Credenciales incorrectas.",
+      ];
     }
 
     // $profile = $user->profile;
@@ -147,7 +152,6 @@ class AuthService
         'cookieRefreshToken' => $cookieRefreshToken,
       ]
     ];
-
   }
 
   private function renewRefreshToken(PersonalAccessToken $refreshToken, User $user)

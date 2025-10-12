@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\Role\RoleSeeder;
+use Database\Seeders\User\UserSeeder;
+use Database\Seeders\UserStatus\UserStatusSeeder;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
   public function run(): void
   {
     // User::factory(10)->create();
+    $this->call([
 
-    User::create([
-      'document' => 1095305335,
-      'password' => Hash::make('Breyner.051207'),
+      UserStatusSeeder::class,
+      UserSeeder::class,
+
     ]);
   }
 }
