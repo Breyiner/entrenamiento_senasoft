@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\City\CitySeeder;
+use Database\Seeders\Gender\GenderSeeder;
 use Database\Seeders\Role\RoleSeeder;
 use Database\Seeders\User\UserSeeder;
 use Database\Seeders\UserStatus\UserStatusSeeder;
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
       RoleSeeder::class,
       UserSeeder::class,
       CitySeeder::class,
+      GenderSeeder::class,
 
     ]);
   }

@@ -3,6 +3,7 @@
 use App\Enums\TokenAbility;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\City\CityController;
+use App\Http\Controllers\API\Gender\GenderController;
 use App\Http\Controllers\API\Role\RoleController;
 use App\Http\Controllers\API\UserStatus\UserStatusController;
 use Illuminate\Http\Request;
@@ -77,6 +78,26 @@ Route::middleware('auth:sanctum')->group(
       // ->middleware('permission:cities.update');
 
     Route::delete('/cities/{city_id}', [CityController::class, 'destroy']);
-      // ->middleware('permission:cities.destroy');
+    // ->middleware('permission:cities.destroy');
+
+
+    //* Routes gender
+
+    Route::get('/genders', [GenderController::class, 'index']);
+
+    Route::get('/genders/{gender_id}', [GenderController::class, 'show']);
+      // ->middleware('permission:genders.show');
+
+    Route::post('/genders', [GenderController::class, 'store']);
+      // ->middleware('permission:genders.store');
+
+    Route::put('/genders/{gender_id}', [GenderController::class, 'update']);
+      // ->middleware('permission:genders.update');
+
+    Route::patch('/genders/{gender_id}', [GenderController::class, 'partialUpdate']);
+      // ->middleware('permission:genders.update');
+
+    Route::delete('/genders/{gender_id}', [GenderController::class, 'destroy']);
+      // ->middleware('permission:genders.destroy');
   }
 );
