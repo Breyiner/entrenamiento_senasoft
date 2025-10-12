@@ -2,6 +2,7 @@
 
 use App\Enums\TokenAbility;
 use App\Http\Controllers\API\Auth\AuthController;
+use App\Http\Controllers\API\City\CityController;
 use App\Http\Controllers\API\Role\RoleController;
 use App\Http\Controllers\API\UserStatus\UserStatusController;
 use Illuminate\Http\Request;
@@ -41,21 +42,41 @@ Route::middleware('auth:sanctum')->group(
 
     //* Routes roles
     Route::get('/roles', [RoleController::class, 'index']);
-      // ->middleware('permission:roles.index');
+    // ->middleware('permission:roles.index');
 
     Route::get('/roles/{role_id}', [RoleController::class, 'show']);
-      // ->middleware('permission:roles.show');
+    // ->middleware('permission:roles.show');
 
     Route::post('/roles', [RoleController::class, 'store']);
-      // ->middleware('permission:roles.store');
+    // ->middleware('permission:roles.store');
 
     Route::put('/roles/{role_id}', [RoleController::class, 'update']);
-      // ->middleware('permission:roles.update');
+    // ->middleware('permission:roles.update');
 
     Route::patch('/roles/{role_id}', [RoleController::class, 'partialUpdate']);
-      // ->middleware('permission:roles.update');
+    // ->middleware('permission:roles.update');
 
     Route::delete('/roles/{role_id}', [RoleController::class, 'destroy']);
-      // ->middleware('permission:roles.destroy');
+    // ->middleware('permission:roles.destroy');
+
+
+    //* Routes city
+
+    Route::get('/cities', [CityController::class, 'index']);
+
+    Route::get('/cities/{city_id}', [CityController::class, 'show']);
+      // ->middleware('permission:cities.show');
+
+    Route::post('/cities', [CityController::class, 'store']);
+      // ->middleware('permission:cities.store');
+
+    Route::put('/cities/{city_id}', [CityController::class, 'update']);
+      // ->middleware('permission:cities.update');
+
+    Route::patch('/cities/{city_id}', [CityController::class, 'partialUpdate']);
+      // ->middleware('permission:cities.update');
+
+    Route::delete('/cities/{city_id}', [CityController::class, 'destroy']);
+      // ->middleware('permission:cities.destroy');
   }
 );
