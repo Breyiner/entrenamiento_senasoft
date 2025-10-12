@@ -15,9 +15,11 @@ class UserSeeder extends Seeder
   public function run(): void
   {
 
-    User::create([
+    $superAdmin = User::create([
       'document' => 1095305335,
       'password' => Hash::make('Breyner.051207'),
     ]);
+
+    $superAdmin->assignRole('Super Administrador');
   }
 }
