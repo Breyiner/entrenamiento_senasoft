@@ -4,6 +4,7 @@ namespace App\Models\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Profile\ClientProfile\ClientProfile;
 use App\Models\Profile\Profile;
 use App\Models\userStatus\UserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -60,8 +61,27 @@ class User extends Authenticatable
     return $this->belongsTo(UserStatus::class);
   }
 
-  public function profile(): HasOne
+    public function profile(): HasOne
+    {
+      return $this->hasOne(Profile::class);
+    }
+
+  public function clientProfile(): HasOne
   {
-    return $this->hasOne(Profile::class);
+    return $this->hasOne(ClientProfile::class);
+  }
+
+  public function scopeClients($query)
+  {
+    return $query->whereHas('roles', function ($q) {
+      $q->where('name', 'Cliente');
+    });
+  }
+
+  public function scopeUsers($query)
+  {
+    return $query->whereDoesntHave('roles', function ($q) {
+      $q->where('name', 'Cliente');
+    });
   }
 }

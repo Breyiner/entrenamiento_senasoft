@@ -1,31 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\API\User;
+namespace App\Http\Controllers\API\Client;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\PartialUpdateUserRequest;
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateOwnUserEmailRequest;
-use App\Http\Requests\User\UpdateOwnUserPasswordRequest;
-use App\Http\Requests\User\UpdateUserEmailRequest;
-use App\Http\Requests\User\UpdateUserPasswordRequest;
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Requests\User\UpdateUserRoleRequest;
-use App\Http\Requests\User\UpdateUserStatusRequest;
-use App\Services\User\UserService;
+use App\Http\Requests\Client\PartialUpdateClientRequest;
+use App\Http\Requests\Client\StoreClientRequest;
+use App\Http\Requests\Client\UpdateClientRequest;
+use App\Services\Client\ClientService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class ClientController extends Controller
 {
   use AuthorizesRequests;
-  protected $userService;
+  protected $clientService;
 
-  public function __construct(UserService $userService)
+  public function __construct(ClientService $clientService)
   {
-    $this->userService = $userService;
+    $this->clientService = $clientService;
   }
 
   /**
@@ -33,7 +27,7 @@ class UserController extends Controller
    */
   public function index()
   {
-    $response = $this->userService->getAllUsers();
+    $response = $this->clientService->getAllClients();
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -43,8 +37,7 @@ class UserController extends Controller
 
   public function indexAllInformation()
   {
-
-    $response = $this->userService->getAllInformation();
+    $response = $this->clientService->getAllInformation();
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -57,20 +50,7 @@ class UserController extends Controller
    */
   public function show(string $id)
   {
-    $response = $this->userService->getUser($id);
-
-    if ($response['error'])
-      return ResponseFormatter::error($response['message'], $response['code']);
-
-    return ResponseFormatter::success($response['message'], $response['code'], $response['data'] ?? []);
-  }
-
-  public function showOwn(Request $request)
-  {
-
-    $user = Auth::user();
-
-    $response = $this->userService->getUser($user->id);
+    $response = $this->clientService->getClient($id);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -81,12 +61,12 @@ class UserController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(StoreUserRequest $request)
+  public function store(StoreClientRequest $request)
   {
 
     $data = $request->validated();
 
-    $response = $this->userService->createUser($data);
+    $response = $this->clientService->createClient($data);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -97,11 +77,11 @@ class UserController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(UpdateUserRequest $request, string $id)
+  public function update(UpdateClientRequest $request, string $id)
   {
     $data = $request->validated();
 
-    $response = $this->userService->updateUser($data, $id);
+    $response = $this->clientService->updateClient($data, $id);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -109,28 +89,15 @@ class UserController extends Controller
     return ResponseFormatter::success($response['message'], $response['code'], $response['data'] ?? []);
   }
 
-  public function partialUpdate(PartialUpdateUserRequest $request, string $id)
+  public function partialUpdate(PartialUpdateClientRequest $request, string $id)
   {
 
     $data = $request->validated();
 
-    $response = $this->userService->updateUser($data, $id);
+    $response = $this->clientService->updateClient($data, $id);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code'], $response['errors']);
-
-    return ResponseFormatter::success($response['message'], $response['code'], $response['data'] ?? []);
-  }
-
-  public function updateOwnPassword(UpdateOwnUserPasswordRequest $request)
-  {
-    $user = Auth::user();
-    $data = $request->validated();
-
-    $response = $this->userService->updatePassword($data, $user->id);
-
-    if ($response['error'])
-      return ResponseFormatter::error($response['message'], $response['code']);
 
     return ResponseFormatter::success($response['message'], $response['code'], $response['data'] ?? []);
   }
@@ -140,7 +107,7 @@ class UserController extends Controller
    */
   public function destroy(string $id)
   {
-    $response = $this->userService->deleteUser($id);
+    $response = $this->clientService->deleteClient($id);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -150,7 +117,7 @@ class UserController extends Controller
 
   public function softDelete($id)
   {
-    $response = $this->userService->softDeleteUser($id);
+    $response = $this->clientService->softDeleteClient($id);
 
 
     if ($response['error'])

@@ -17,7 +17,7 @@ class UserService
   public function getAllUsers()
   {
 
-    $users = User::all();
+    $users = User::users()->get();
 
     if (count($users) == 0)
       return [
@@ -36,10 +36,52 @@ class UserService
     ];
   }
 
+  public function getAllInformation()
+  {
+    $users = User::users()->with(['profile.city', 'profile.gender', 'roles', 'status'])->get();
+
+    if ($users->isEmpty()) {
+      return [
+        "error" => false,
+        "code" => 200,
+        "message" => "No hay usuarios registrados",
+        "data" => []
+      ];
+    }
+
+    $data = $users->map(function ($user) {
+      return [
+        'id' => $user->id,
+        'document' => $user->document,
+        'first_name' => optional($user->profile)->first_name,
+        'last_name' => optional($user->profile)->last_name,
+        'email' => optional($user->profile)->email,
+        'phone_number' => optional($user->profile)->phone_number,
+        'city' => optional(optional($user->profile)->city)->name,
+        'gender' => optional(optional($user->profile)->gender)->name,
+        'role' => optional($user->roles()->first())->name,
+        'status' => optional($user->status)->name,
+      ];
+    });
+
+    return [
+      "error" => false,
+      "code" => 200,
+      "message" => "Información obtenida con éxito",
+      "data" => $data
+    ];
+  }
+
   public function getUser($id)
   {
 
-    $user = User::find($id);
+    $user = User::where('id', $id)->first();
+
+    if ($user) {
+      $user = $user->users()->first();
+    } else {
+      $user = null;
+    }
 
     if (!$user)
       return [
@@ -114,7 +156,13 @@ class UserService
     try {
       DB::beginTransaction();
 
-      $user = User::find($id);
+      $user = User::where('id', $id)->first();
+
+      if ($user) {
+        $user = $user->users()->first();
+      } else {
+        $user = null;
+      }
 
       if (!$user)
         return [
@@ -162,7 +210,13 @@ class UserService
     try {
       DB::beginTransaction();
 
-      $user = User::find($id);
+      $user = User::where('id', $id)->first();
+
+      if ($user) {
+        $user = $user->users()->first();
+      } else {
+        $user = null;
+      }
 
       if (!$user)
         return [
@@ -207,7 +261,13 @@ class UserService
   public function updatePassword(array $data, $id)
   {
 
-    $user = User::find($id);
+    $user = User::where('id', $id)->first();
+
+    if ($user) {
+      $user = $user->users()->first();
+    } else {
+      $user = null;
+    }
 
     if (!$user)
       return [
@@ -238,7 +298,13 @@ class UserService
 
   public function softDeleteUser($id)
   {
-    $user = User::find($id);
+    $user = User::where('id', $id)->first();
+
+    if ($user) {
+      $user = $user->users()->first();
+    } else {
+      $user = null;
+    }
 
     if (!$user)
       return [
@@ -259,7 +325,13 @@ class UserService
   public function deleteUser($id)
   {
 
-    $user = User::find($id);
+    $user = User::where('id', $id)->first();
+
+    if ($user) {
+      $user = $user->users()->first();
+    } else {
+      $user = null;
+    }
 
     if (!$user)
       return [

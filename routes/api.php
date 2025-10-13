@@ -5,8 +5,10 @@ use App\Http\Controllers\API\ARL\ARLController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\City\CityController;
 use App\Http\Controllers\API\Gender\GenderController;
+use App\Http\Controllers\API\Profile\ClientProfile\ClientProfileController;
 use App\Http\Controllers\API\Profile\UserProfile\UserProfileController;
 use App\Http\Controllers\API\Role\RoleController;
+use App\Http\Controllers\API\Client\ClientController;
 use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\API\UserStatus\UserStatusController;
 use Illuminate\Http\Request;
@@ -45,11 +47,11 @@ Route::middleware('auth:sanctum')->group(
     // ->middleware('permission:statuses.destroy');
 
 
-    //Routes User
+    //* Routes User
     Route::get('/users', [UserController::class, 'index']);
       // ->middleware('permission:users.index');
-
-    // Route::get('/users/information', [UserController::class, 'indexAllInformation'])
+  
+    Route::get('/users/information', [UserController::class, 'indexAllInformation']);
     //   ->middleware('permission:users.index');
 
     Route::get('/users/me', [UserController::class, 'showOwn']);
@@ -157,29 +159,73 @@ Route::middleware('auth:sanctum')->group(
     // ->middleware('permission:arls.destroy');
 
 
-    //* Routes profiles
-    Route::get('/profiles', [UserProfileController::class, 'index']);
-      // ->middleware('permission:profiles.index');
+    //* Rutas Cliente
+    Route::get('/clients', [ClientController::class, 'index']);
+    // ->middleware('permission:clients.index');
+
+    Route::get('/clients/information', [ClientController::class, 'indexAllInformation']);
+    //   ->middleware('permission:clients.index');
+
+    Route::get('/clients/{client_id}', [ClientController::class, 'show']);
+    // ->middleware('permission:clients.show');
+
+    Route::post('/clients', [ClientController::class, 'store']);
+    // ->middleware('permission:clients.store');
+
+    Route::put('/clients/{client_id}', [ClientController::class, 'update']);
+    // ->middleware('permission:clients.update');
+
+    Route::patch('/clients/{client_id}', [ClientController::class, 'partialUpdate']);
+    // ->middleware('permission:clients.update');
+
+    Route::delete('/clients/{client_id}', [ClientController::class, 'destroy']);
+    // ->middleware('permission:clients.destroy');
+
+    Route::delete('/clients/{client_id}/soft', [ClientController::class, 'softDelete']);
+    // ->middleware('permission:clients.destroy');
+
+
+
+    //* Routes profiles usuarios
+    Route::get('/profiles/users', [UserProfileController::class, 'index']);
+      // ->middleware('permission:profiles-users.index');
 
     Route::get('/profiles/me', [UserProfileController::class, 'showOwn']);
-      // ->middleware('permission:profiles.show-own');
+      // ->middleware('permission:profiles-users.show-own');
 
-    Route::get('/profiles/{profile_id}', [UserProfileController::class, 'show']);
-      // ->middleware('permission:profiles.show');
+    Route::get('/profiles/users/profile/{profile_id}', [UserProfileController::class, 'show']);
+      // ->middleware('permission:profiles-users.show');
 
-    Route::get('/profiles/user/{user_id}', [UserProfileController::class, 'showByUser']);
-      // ->middleware('permission:profiles.show-user');
+    Route::get('/profiles/users/user/{user_id}', [UserProfileController::class, 'showByUser']);
+      // ->middleware('permission:profiles-users.show-user');
 
     Route::put('/profiles/me', [UserProfileController::class, 'updateOwn']);
-      // ->middleware('permission:profiles.update-own');
+      // ->middleware('permission:profiles-users.update-own');
 
     Route::put('/profiles/user/{user_id}', [UserProfileController::class, 'update']);
-      // ->middleware('permission:profiles.update');
+      // ->middleware('permission:profiles-users.update');
 
     Route::patch('/profiles/me', [UserProfileController::class, 'partialUpdateOwn']);
-      // ->middleware('permission:profiles.update-own');
+      // ->middleware('permission:profiles-users.update-own');
 
     Route::patch('/profiles/user/{user_id}', [UserProfileController::class, 'partialUpdate']);
-      // ->middleware('permission:profiles.update');
+    // ->middleware('permission:profiles-users.update');
+
+
+    //* Routes profiles clientes
+    Route::get('/profiles/clients', [ClientProfileController::class, 'index']);
+    // ->middleware('permission:profiles-clients.index');
+
+    Route::get('/profiles/clients/profile/{profile_id}', [ClientProfileController::class, 'show']);
+    // ->middleware('permission:profiles-clients.show');
+
+    Route::get('/profiles/clients/client/{user_id}', [ClientProfileController::class, 'showByUser']);
+    // ->middleware('permission:profiles-clients.show-user');
+
+    Route::put('/profiles/user/{user_id}', [ClientProfileController::class, 'update']);
+    // ->middleware('permission:profiles-clients.update');
+
+    Route::patch('/profiles/user/{user_id}', [ClientProfileController::class, 'partialUpdate']);
+    // ->middleware('permission:profiles-clients.update');
   }
 );

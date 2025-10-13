@@ -21,10 +21,9 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->route('user_id');
 
         return [
-            'status_id' => 'required|exists:statuses,id',
+            'status_id' => 'required|exists:user_statuses,id',
             'role_id' => 'sometimes|exists:roles,id',
         ];
     }

@@ -38,7 +38,7 @@ class Profile extends Model
   {
     return $query->whereHas('user', function ($user) {
       $user->whereDoesntHave('roles', function ($role) {
-        $role->where('name', 'client');
+        $role->where('name', 'Cliente');
       });
     });
   }
