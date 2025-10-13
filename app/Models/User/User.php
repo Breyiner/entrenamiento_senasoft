@@ -4,9 +4,11 @@ namespace App\Models\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Profile\Profile;
 use App\Models\userStatus\UserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -56,5 +58,10 @@ class User extends Authenticatable
   public function status(): BelongsTo
   {
     return $this->belongsTo(UserStatus::class);
+  }
+
+  public function profile(): HasOne
+  {
+    return $this->hasOne(Profile::class);
   }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\API\ARL\ARLController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\City\CityController;
 use App\Http\Controllers\API\Gender\GenderController;
+use App\Http\Controllers\API\Profile\UserProfile\UserProfileController;
 use App\Http\Controllers\API\Role\RoleController;
 use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\API\UserStatus\UserStatusController;
@@ -154,5 +155,31 @@ Route::middleware('auth:sanctum')->group(
 
     Route::delete('/arls/{arl_id}', [ARLController::class, 'destroy']);
     // ->middleware('permission:arls.destroy');
+
+
+    //* Routes profiles
+    Route::get('/profiles', [UserProfileController::class, 'index']);
+      // ->middleware('permission:profiles.index');
+
+    Route::get('/profiles/me', [UserProfileController::class, 'showOwn']);
+      // ->middleware('permission:profiles.show-own');
+
+    Route::get('/profiles/{profile_id}', [UserProfileController::class, 'show']);
+      // ->middleware('permission:profiles.show');
+
+    Route::get('/profiles/user/{user_id}', [UserProfileController::class, 'showByUser']);
+      // ->middleware('permission:profiles.show-user');
+
+    Route::put('/profiles/me', [UserProfileController::class, 'updateOwn']);
+      // ->middleware('permission:profiles.update-own');
+
+    Route::put('/profiles/user/{user_id}', [UserProfileController::class, 'update']);
+      // ->middleware('permission:profiles.update');
+
+    Route::patch('/profiles/me', [UserProfileController::class, 'partialUpdateOwn']);
+      // ->middleware('permission:profiles.update-own');
+
+    Route::patch('/profiles/user/{user_id}', [UserProfileController::class, 'partialUpdate']);
+      // ->middleware('permission:profiles.update');
   }
 );
