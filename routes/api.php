@@ -6,6 +6,7 @@ use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\City\CityController;
 use App\Http\Controllers\API\Gender\GenderController;
 use App\Http\Controllers\API\Role\RoleController;
+use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\API\UserStatus\UserStatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,39 @@ Route::middleware('auth:sanctum')->group(
 
     Route::delete('/statuses/{status_id}', [UserStatusController::class, 'destroy']);
     // ->middleware('permission:statuses.destroy');
+
+
+    //Routes User
+    Route::get('/users', [UserController::class, 'index']);
+      // ->middleware('permission:users.index');
+
+    // Route::get('/users/information', [UserController::class, 'indexAllInformation'])
+    //   ->middleware('permission:users.index');
+
+    Route::get('/users/me', [UserController::class, 'showOwn']);
+      // ->middleware('permission:users.show-own');
+
+    Route::get('/users/{user_id}', [UserController::class, 'show']);
+      // ->middleware('permission:users.show');
+
+    Route::post('/users', [UserController::class, 'store']);
+      // ->middleware('permission:users.store');
+
+    Route::put('/users/{user_id}', [UserController::class, 'update']);
+      // ->middleware('permission:users.update');
+
+    Route::patch('/users/{user_id}', [UserController::class, 'partialUpdate']);
+      // ->middleware('permission:users.update');
+
+    Route::patch('/users/me/password', [UserController::class, 'updateOwnPassword']);
+      // ->middleware('permission:users.update-own-password');
+
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+      // ->middleware('permission:users.destroy');
+
+    Route::delete('/users/{id}/soft', [UserController::class, 'softDelete']);
+      // ->middleware('permission:users.destroy');
+
 
     //* Routes roles
     Route::get('/roles', [RoleController::class, 'index']);
