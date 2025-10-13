@@ -44,7 +44,6 @@ class LoginRequest extends FormRequest
       'password.min' => 'La :attribute debe tener al menos :min caracteres.',
       'password.max' => 'La :attribute no debe tener más de :max caracteres',
 
-      'document.numeric' => 'El :attribute debe ser un número',
       'password.string' => 'La :attribute debe ser texto',
     ];
   }
@@ -57,7 +56,7 @@ class LoginRequest extends FormRequest
   public function attributes(): array
   {
     return [
-      'document' => 'número de documento o NIT',
+      'document' => 'número de documento',
       'password' => 'contraseña'
     ];
   }

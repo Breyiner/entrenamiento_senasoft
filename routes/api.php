@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\TokenAbility;
+use App\Http\Controllers\API\ARL\ARLController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\City\CityController;
 use App\Http\Controllers\API\Gender\GenderController;
@@ -98,6 +99,26 @@ Route::middleware('auth:sanctum')->group(
       // ->middleware('permission:genders.update');
 
     Route::delete('/genders/{gender_id}', [GenderController::class, 'destroy']);
-      // ->middleware('permission:genders.destroy');
+    // ->middleware('permission:genders.destroy');
+
+
+    //* Routes arls
+    
+    Route::get('/arls', [ARLController::class, 'index']);
+
+    Route::get('/arls/{arl_id}', [ARLController::class, 'show']);
+    // ->middleware('permission:arls.show');
+
+    Route::post('/arls', [ARLController::class, 'store']);
+    // ->middleware('permission:arls.store');
+
+    Route::put('/arls/{arl_id}', [ARLController::class, 'update']);
+    // ->middleware('permission:arls.update');
+
+    Route::patch('/arls/{arl_id}', [ARLController::class, 'partialUpdate']);
+    // ->middleware('permission:arls.update');
+
+    Route::delete('/arls/{arl_id}', [ARLController::class, 'destroy']);
+    // ->middleware('permission:arls.destroy');
   }
 );

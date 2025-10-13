@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\ARL\ARLSeeder;
 use Database\Seeders\City\CitySeeder;
 use Database\Seeders\Gender\GenderSeeder;
 use Database\Seeders\Role\RoleSeeder;
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
       UserSeeder::class,
       CitySeeder::class,
       GenderSeeder::class,
+      ARLSeeder::class,
 
     ]);
   }
