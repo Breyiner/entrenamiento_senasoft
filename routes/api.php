@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\TokenAbility;
+use App\Http\Controllers\API\Activity\ActivityController;
 use App\Http\Controllers\API\ARL\ARLController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\City\CityController;
@@ -227,5 +228,26 @@ Route::middleware('auth:sanctum')->group(
 
     Route::patch('/profiles/user/{user_id}', [ClientProfileController::class, 'partialUpdate']);
     // ->middleware('permission:profiles-clients.update');
+
+
+    //* Routes activities
+    Route::get('/activities', [ActivityController::class, 'index']);
+    // ->middleware('permission:activities.index');
+
+    Route::get('/activities/{activity_id}', [ActivityController::class, 'show']);
+    // ->middleware('permission:activities.show');
+
+    Route::post('/activities', [ActivityController::class, 'store']);
+    // ->middleware('permission:activities.store');
+
+    Route::put('/activities/{activity_id}', [ActivityController::class, 'update']);
+    // ->middleware('permission:activities.update');
+
+    Route::patch('/activities/{activity_id}', [ActivityController::class, 'partialUpdate']);
+    // ->middleware('permission:activities.update');
+
+    Route::delete('/activities/{activity_id}', [ActivityController::class, 'destroy']);
+    // ->middleware('permission:activities.destroy');
+
   }
 );
