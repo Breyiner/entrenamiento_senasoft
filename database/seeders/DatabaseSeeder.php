@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Database\Seeders\Activity\ActivitySeeder;
 use Database\Seeders\ARL\ARLSeeder;
 use Database\Seeders\City\CitySeeder;
+use Database\Seeders\DocumentStatus\DocumentStatusSeeder;
 use Database\Seeders\Gender\GenderSeeder;
 use Database\Seeders\OrderStatus\OrderStatusSeeder;
 use Database\Seeders\Role\RoleSeeder;
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
       ARLSeeder::class,
       ActivitySeeder::class,
       OrderStatusSeeder::class,
+      DocumentStatusSeeder::class,
 
     ]);
   }

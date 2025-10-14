@@ -10,6 +10,7 @@ use App\Http\Controllers\API\Profile\ClientProfile\ClientProfileController;
 use App\Http\Controllers\API\Profile\UserProfile\UserProfileController;
 use App\Http\Controllers\API\Role\RoleController;
 use App\Http\Controllers\API\Client\ClientController;
+use App\Http\Controllers\API\DocumentStatus\DocumentStatusController;
 use App\Http\Controllers\API\OrderStatus\OrderStatusController;
 use App\Http\Controllers\API\ServiceOrder\ServiceOrderController;
 use App\Http\Controllers\API\User\UserController;
@@ -291,6 +292,23 @@ Route::middleware('auth:sanctum')->group(
 
     Route::delete('/service_orders/{service_order_id}', [ServiceOrderController::class, 'destroy']);
     // ->middleware('permission:service_orders.destroy');
+
+
+    // * Routes document_statuses
+    Route::get('/document_statuses', [DocumentStatusController::class, 'index']);
+    // ->middleware('permission:document_statuses.index');
+
+    Route::get('/document_statuses/{document_status}', [DocumentStatusController::class, 'show']);
+    // ->middleware('permission:document_statuses.show');
+
+    Route::post('/document_statuses', [DocumentStatusController::class, 'store']);
+    // ->middleware('permission:document_statuses.store');
+
+    Route::put('/document_statuses/{document_status}', [DocumentStatusController::class, 'update']);
+    // ->middleware('permission:document_statuses.update');
+
+    Route::delete('/document_statuses/{document_status}', [DocumentStatusController::class, 'destroy']);
+    // ->middleware('permission:document_statuses.destroy');
 
   }
 );
