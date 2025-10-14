@@ -11,6 +11,7 @@ use App\Http\Controllers\API\Profile\UserProfile\UserProfileController;
 use App\Http\Controllers\API\Role\RoleController;
 use App\Http\Controllers\API\Client\ClientController;
 use App\Http\Controllers\API\DocumentStatus\DocumentStatusController;
+use App\Http\Controllers\API\Note\NoteController;
 use App\Http\Controllers\API\OrderStatus\OrderStatusController;
 use App\Http\Controllers\API\ServiceOrder\ServiceOrderController;
 use App\Http\Controllers\API\User\UserController;
@@ -292,6 +293,11 @@ Route::middleware('auth:sanctum')->group(
 
     Route::delete('/service_orders/{service_order_id}', [ServiceOrderController::class, 'destroy']);
     // ->middleware('permission:service_orders.destroy');
+
+
+    // * Routes notes
+    Route::get('/service_orders/{service_order}/notes', [NoteController::class, 'index']);
+    Route::post('/service_orders/{service_order}/notes', [NoteController::class, 'store']);
 
 
     // * Routes document_statuses

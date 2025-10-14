@@ -3,10 +3,12 @@
 namespace App\Models\ServiceOrder;
 
 use App\Models\Activity\Activity;
+use App\Models\Note\Note;
 use App\Models\OrderStatus\OrderStatus;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class ServiceOrder extends Model
 {
@@ -44,5 +46,13 @@ class ServiceOrder extends Model
   public function status()
   {
     return $this->belongsTo(OrderStatus::class);
+  }
+
+  /**
+   * Get all of the order's notes.
+   */
+  public function notes(): MorphMany
+  {
+    return $this->morphMany(Note::class, 'notable');
   }
 }
