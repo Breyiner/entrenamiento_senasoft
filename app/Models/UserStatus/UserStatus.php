@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\userStatus;
+namespace App\Models\UserStatus;
 
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

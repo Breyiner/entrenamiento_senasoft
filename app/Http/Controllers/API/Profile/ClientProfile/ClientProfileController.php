@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\Profile\clientProfile;
+namespace App\Http\Controllers\API\Profile\ClientProfile;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PartialUpdateClientProfileRequest as PartialUpdateProfileRequest;
-use App\Http\Requests\UpdateClientProfileRequest as UpdateProfileRequest;
+use App\Http\Requests\Profile\ClientProfile\PartialUpdateClientProfileRequest as PartialUpdateProfileRequest;
+use App\Http\Requests\Profile\ClientProfile\UpdateClientProfileRequest as UpdateProfileRequest;
 use App\Services\Profile\ClientProfile\ClientProfileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

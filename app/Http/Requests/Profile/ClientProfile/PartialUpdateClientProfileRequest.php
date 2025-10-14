@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Profile\ClientProfile;
 
 use App\Http\Requests\Profile\UserProfile\PartialUpdateProfileRequest;
 
