@@ -11,6 +11,7 @@ use App\Http\Controllers\API\Profile\UserProfile\UserProfileController;
 use App\Http\Controllers\API\Role\RoleController;
 use App\Http\Controllers\API\Client\ClientController;
 use App\Http\Controllers\API\OrderStatus\OrderStatusController;
+use App\Http\Controllers\API\ServiceOrder\ServiceOrderController;
 use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\API\UserStatus\UserStatusController;
 use Illuminate\Http\Request;
@@ -270,6 +271,26 @@ Route::middleware('auth:sanctum')->group(
 
     Route::delete('/order_statuses/{order_status_id}', [OrderStatusController::class, 'destroy']);
     // ->middleware('permission:order_statuses.destroy');
+
+
+    // * Routes service_orders
+    Route::get('/service_orders', [ServiceOrderController::class, 'index']);
+    // ->middleware('permission:service_orders.index');
+
+    Route::get('/service_orders/{service_order_id}', [ServiceOrderController::class, 'show']);
+    // ->middleware('permission:service_orders.show');
+
+    Route::post('/service_orders', [ServiceOrderController::class, 'store']);
+    // ->middleware('permission:service_orders.store');
+
+    Route::put('/service_orders/{service_order_id}', [ServiceOrderController::class, 'update']);
+    // ->middleware('permission:service_orders.update');
+
+    Route::patch('/service_orders/{service_order_id}', [ServiceOrderController::class, 'partialUpdate']);
+    // ->middleware('permission:service_orders.update');
+
+    Route::delete('/service_orders/{service_order_id}', [ServiceOrderController::class, 'destroy']);
+    // ->middleware('permission:service_orders.destroy');
 
   }
 );
