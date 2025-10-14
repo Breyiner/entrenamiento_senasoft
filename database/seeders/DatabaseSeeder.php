@@ -6,6 +6,7 @@ use Database\Seeders\Activity\ActivitySeeder;
 use Database\Seeders\ARL\ARLSeeder;
 use Database\Seeders\City\CitySeeder;
 use Database\Seeders\Gender\GenderSeeder;
+use Database\Seeders\OrderStatus\OrderStatusSeeder;
 use Database\Seeders\Role\RoleSeeder;
 use Database\Seeders\User\UserSeeder;
 use Database\Seeders\UserStatus\UserStatusSeeder;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
       GenderSeeder::class,
       ARLSeeder::class,
       ActivitySeeder::class,
+      OrderStatusSeeder::class,
 
     ]);
   }

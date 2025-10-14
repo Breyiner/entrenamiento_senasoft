@@ -10,6 +10,7 @@ use App\Http\Controllers\API\Profile\ClientProfile\ClientProfileController;
 use App\Http\Controllers\API\Profile\UserProfile\UserProfileController;
 use App\Http\Controllers\API\Role\RoleController;
 use App\Http\Controllers\API\Client\ClientController;
+use App\Http\Controllers\API\OrderStatus\OrderStatusController;
 use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\API\UserStatus\UserStatusController;
 use Illuminate\Http\Request;
@@ -248,6 +249,27 @@ Route::middleware('auth:sanctum')->group(
 
     Route::delete('/activities/{activity_id}', [ActivityController::class, 'destroy']);
     // ->middleware('permission:activities.destroy');
+
+
+
+    // * Routes order_statuses
+    Route::get('/order_statuses', [OrderStatusController::class, 'index']);
+    // ->middleware('permission:order_statuses.index');
+
+    Route::get('/order_statuses/{order_status_id}', [OrderStatusController::class, 'show']);
+    // ->middleware('permission:order_statuses.show');
+
+    Route::post('/order_statuses', [OrderStatusController::class, 'store']);
+    // ->middleware('permission:order_statuses.store');
+
+    Route::put('/order_statuses/{order_status_id}', [OrderStatusController::class, 'update']);
+    // ->middleware('permission:order_statuses.update');
+
+    Route::patch('/order_statuses/{order_status_id}', [OrderStatusController::class, 'partialUpdate']);
+    // ->middleware('permission:order_statuses.update');
+
+    Route::delete('/order_statuses/{order_status_id}', [OrderStatusController::class, 'destroy']);
+    // ->middleware('permission:order_statuses.destroy');
 
   }
 );
