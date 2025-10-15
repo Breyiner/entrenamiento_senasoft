@@ -2,11 +2,18 @@
 
 namespace App\Models\DocumentStatus;
 
+use App\Models\Document\Document;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DocumentStatus extends Model
 {
   protected $fillable = [
     'name',
   ];
+
+  public function documents(): HasMany
+  {
+    return $this->hasMany(Document::class);
+  }
 }

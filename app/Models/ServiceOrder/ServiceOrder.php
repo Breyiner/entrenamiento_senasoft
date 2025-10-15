@@ -3,6 +3,7 @@
 namespace App\Models\ServiceOrder;
 
 use App\Models\Activity\Activity;
+use App\Models\Document\Document;
 use App\Models\Note\Note;
 use App\Models\OrderStatus\OrderStatus;
 use App\Models\User\User;
@@ -54,5 +55,10 @@ class ServiceOrder extends Model
   public function notes(): MorphMany
   {
     return $this->morphMany(Note::class, 'notable');
+  }
+
+  public function documents(): MorphMany
+  {
+    return $this->morphMany(Document::class, 'documentable');
   }
 }

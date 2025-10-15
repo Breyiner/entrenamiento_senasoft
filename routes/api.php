@@ -10,6 +10,7 @@ use App\Http\Controllers\API\Profile\ClientProfile\ClientProfileController;
 use App\Http\Controllers\API\Profile\UserProfile\UserProfileController;
 use App\Http\Controllers\API\Role\RoleController;
 use App\Http\Controllers\API\Client\ClientController;
+use App\Http\Controllers\API\Document\DocumentController;
 use App\Http\Controllers\API\DocumentStatus\DocumentStatusController;
 use App\Http\Controllers\API\Note\NoteController;
 use App\Http\Controllers\API\OrderStatus\OrderStatusController;
@@ -298,6 +299,11 @@ Route::middleware('auth:sanctum')->group(
     // * Routes notes
     Route::get('/service_orders/{service_order}/notes', [NoteController::class, 'index']);
     Route::post('/service_orders/{service_order}/notes', [NoteController::class, 'store']);
+
+
+    //* Routes documents
+    Route::get('/service_orders/{service_order}/documents', [DocumentController::class, 'index']);
+    Route::post('/service_orders/{service_order}/documents', [DocumentController::class, 'store']);
 
 
     // * Routes document_statuses
