@@ -4,11 +4,13 @@ namespace App\Models\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Notification\Notification;
 use App\Models\Profile\ClientProfile\ClientProfile;
 use App\Models\Profile\Profile;
 use App\Models\userStatus\UserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -65,6 +67,11 @@ class User extends Authenticatable
     {
       return $this->hasOne(Profile::class);
     }
+
+  public function notifications(): HasMany
+  {
+    return $this->hasMany(Notification::class);
+  }
 
   public function clientProfile(): HasOne
   {

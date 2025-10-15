@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Client\ClientController;
 use App\Http\Controllers\API\Document\DocumentController;
 use App\Http\Controllers\API\DocumentStatus\DocumentStatusController;
 use App\Http\Controllers\API\Note\NoteController;
+use App\Http\Controllers\API\Notification\NotificationController;
 use App\Http\Controllers\API\OrderStatus\OrderStatusController;
 use App\Http\Controllers\API\ServiceOrder\ServiceOrderController;
 use App\Http\Controllers\API\User\UserController;
@@ -322,5 +323,11 @@ Route::middleware('auth:sanctum')->group(
     Route::delete('/document_statuses/{document_status}', [DocumentStatusController::class, 'destroy']);
     // ->middleware('permission:document_statuses.destroy');
 
+
+    //* Routes Notifactions
+    Route::get('/notifications', [NotificationController::class, 'index']);
+
+    Route::get('/notifications/me', [NotificationController::class, 'showOwn']);
+    Route::get('notifications/users/{userId}', [NotificationController::class, 'show']);
   }
 );
