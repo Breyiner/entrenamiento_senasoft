@@ -8,7 +8,7 @@ class StoreDocumentRequest extends FormRequest
 {
   public function authorize(): bool
   {
-    return true; // Ajusta según tus reglas de autorización
+    return true; 
   }
 
   public function rules(): array

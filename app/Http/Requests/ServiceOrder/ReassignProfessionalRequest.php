@@ -8,7 +8,6 @@ class ReassignProfessionalRequest extends FormRequest
 {
   public function authorize(): bool
   {
-    // Aquí definir autorización según tu lógica o roles
     return true;
   }
 

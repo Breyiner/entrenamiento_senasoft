@@ -117,15 +117,6 @@ class ARLService
       ];
     }
 
-    
-    // if ($arl->users()->exists()) {
-    //   return [
-    //     "error" => true,
-    //     "code" => 409,
-    //     "message" => "No se puede eliminar la ARL porque tiene usuarios relacionados",
-    //   ];
-    // }
-
     $arl->delete();
 
     return [

@@ -119,15 +119,6 @@ class ActivityService
       ];
     }
 
-    // Ejemplo: si la actividad está relacionada con órdenes, evitar borrarla (aquí debes definir tu lógica)
-    // if ($activity->orders()->exists()) {
-    //     return [
-    //         "error" => true,
-    //         "code" => 409,
-    //         "message" => "No se puede eliminar la actividad porque tiene órdenes relacionadas",
-    //     ];
-    // }
-
     $activity->delete();
 
     return [

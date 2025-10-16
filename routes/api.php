@@ -139,19 +139,33 @@ Route::middleware('auth:sanctum')->group(function () {
   });
 
   Route::prefix('service_orders')->group(function () {
-    Route::get('/', [ServiceOrderController::class, 'index'])->middleware('permission:service_orders.index');
-    Route::get('/{service_order_id}', [ServiceOrderController::class, 'show'])->middleware('permission:service_orders.show');
-    Route::get('/status/{status_id}', [ServiceOrderController::class, 'showByStatus'])->middleware('permission:service_orders.show');
-    Route::get('/professional/{professional_id}', [ServiceOrderController::class, 'showByProfessional'])->middleware('permission:service_orders.show');
-    Route::post('/', [ServiceOrderController::class, 'store'])->middleware('permission:service_orders.store');
-    Route::put('/{service_order_id}', [ServiceOrderController::class, 'update'])->middleware('permission:service_orders.update');
-    Route::patch('/{service_order_id}', [ServiceOrderController::class, 'partialUpdate'])->middleware('permission:service_orders.update');
-    Route::delete('/{service_order_id}', [ServiceOrderController::class, 'destroy'])->middleware('permission:service_orders.destroy');
-    Route::patch('/{service_order_id}/postpone', [ServiceOrderController::class, 'postpone'])->middleware('permission:service_orders.postpone');
-    Route::patch('/{service_order_id}/accept', [ServiceOrderController::class, 'accept'])->middleware('permission:service_orders.accept');
-    Route::patch('/{service_order_id}/reject', [ServiceOrderController::class, 'reject'])->middleware('permission:service_orders.reject');
-    Route::patch('/{service_order_id}/reassign-professional', [ServiceOrderController::class, 'reassignProfessional'])->middleware('permission:service_orders.reassign-professional');
+    Route::get('/', [ServiceOrderController::class, 'index'])
+      ->middleware('permission:service_orders.view_any');
+    Route::get('/{service_order_id}', [ServiceOrderController::class, 'show'])
+      ->middleware('permission:service_orders.view');
+    Route::get('/status/{status_id}', [ServiceOrderController::class, 'showByStatus'])
+      ->middleware('permission:service_orders.view_by_status');
+    Route::get('/professional/{professional_id}', [ServiceOrderController::class, 'showByProfessional'])
+      ->middleware('permission:service_orders.view_by_professional');
+    Route::post('/', [ServiceOrderController::class, 'store'])
+      ->middleware('permission:service_orders.create');
+    Route::put('/{service_order_id}', [ServiceOrderController::class, 'update'])
+      ->middleware('permission:service_orders.update');
+    Route::patch('/{service_order_id}', [ServiceOrderController::class, 'partialUpdate'])
+      ->middleware('permission:service_orders.update');
+    Route::patch('/{service_order_id}/postpone', [ServiceOrderController::class, 'postpone'])
+      ->middleware('permission:service_orders.postpone');
+    Route::patch('/{service_order_id}/accept', [ServiceOrderController::class, 'accept'])
+      ->middleware('permission:service_orders.accept');
+    Route::patch('/{service_order_id}/reject', [ServiceOrderController::class, 'reject'])
+      ->middleware('permission:service_orders.reject');
+    Route::patch('/{service_order_id}/reassign-professional', [ServiceOrderController::class, 'reassignProfessional'])
+      ->middleware('permission:service_orders.reassign_professional');
+        
+    Route::delete('/{service_order_id}', [ServiceOrderController::class, 'destroy'])
+      ->middleware('permission:service_orders.delete');
   });
+
 
   Route::prefix('notes')->group(function () {
     Route::get('/service_orders/{service_order}', [NoteController::class, 'index'])->middleware('permission:notes.index');
