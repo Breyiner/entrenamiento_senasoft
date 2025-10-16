@@ -15,7 +15,6 @@ class DocumentStatusSeeder extends Seeder
   {
     $statuses = [
       ['name' => 'Cargado'],
-      ['name' => 'En revisión'],
       ['name' => 'Aprobado'],
       ['name' => 'Rechazado'],
       ['name' => 'Archivado'],

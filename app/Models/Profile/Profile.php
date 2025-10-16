@@ -34,6 +34,11 @@ class Profile extends Model
     return $this->belongsTo(City::class);
   }
 
+  public function getFullNameAttribute()
+  {
+    return $this->first_name . ' ' . $this->last_name;
+  }
+
   public function scopeNonClients($query)
   {
     return $query->whereHas('user', function ($user) {

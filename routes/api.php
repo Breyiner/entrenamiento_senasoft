@@ -277,34 +277,46 @@ Route::middleware('auth:sanctum')->group(
     // ->middleware('permission:order_statuses.destroy');
 
 
-    // * Routes service_orders
-    Route::get('/service_orders', [ServiceOrderController::class, 'index']);
-    // ->middleware('permission:service_orders.index');
+    // * Rutas órdenes de servicio
 
+    Route::get('/service_orders', [ServiceOrderController::class, 'index']);
     Route::get('/service_orders/{service_order_id}', [ServiceOrderController::class, 'show']);
-    // ->middleware('permission:service_orders.show');
+    Route::get('/service_orders/status/{status_id}', [ServiceOrderController::class, 'showByStatus']);
+    Route::get('/service_orders/professional/{professional_id}', [ServiceOrderController::class, 'showByProfessional']);
 
     Route::post('/service_orders', [ServiceOrderController::class, 'store']);
-    // ->middleware('permission:service_orders.store');
 
     Route::put('/service_orders/{service_order_id}', [ServiceOrderController::class, 'update']);
-    // ->middleware('permission:service_orders.update');
-
     Route::patch('/service_orders/{service_order_id}', [ServiceOrderController::class, 'partialUpdate']);
-    // ->middleware('permission:service_orders.update');
-
     Route::delete('/service_orders/{service_order_id}', [ServiceOrderController::class, 'destroy']);
-    // ->middleware('permission:service_orders.destroy');
+
+    // Ruta para aplazar una orden
+    Route::patch('/service_orders/{service_order_id}/postpone', [ServiceOrderController::class, 'postpone']);
+
+    // Ruta para aceptar una orden
+    Route::patch('/service_orders/{service_order_id}/accept', [ServiceOrderController::class, 'accept']);
+
+    // Ruta para rechazar una orden
+    Route::patch('/service_orders/{service_order_id}/reject', [ServiceOrderController::class, 'reject']);
+
+    //Ruta para reasignar un profesional
+    Route::patch('/service_orders/{service_order_id}/reassign-professional', [ServiceOrderController::class, 'reassignProfessional']);
 
 
     // * Routes notes
     Route::get('/service_orders/{service_order}/notes', [NoteController::class, 'index']);
     Route::post('/service_orders/{service_order}/notes', [NoteController::class, 'store']);
 
+    Route::get('/documents/{document}/notes', [NoteController::class, 'index']);
+    Route::post('/documents/{document}/notes', [NoteController::class, 'store']);
+
 
     //* Routes documents
     Route::get('/service_orders/{service_order}/documents', [DocumentController::class, 'index']);
     Route::post('/service_orders/{service_order}/documents', [DocumentController::class, 'store']);
+
+    Route::patch('/documents/{document}/approve', [DocumentController::class, 'approve']);
+    Route::patch('/documents/{document}/reject', [DocumentController::class, 'reject']);
 
 
     // * Routes document_statuses
@@ -329,5 +341,6 @@ Route::middleware('auth:sanctum')->group(
 
     Route::get('/notifications/me', [NotificationController::class, 'showOwn']);
     Route::get('notifications/users/{userId}', [NotificationController::class, 'show']);
+    Route::patch('/notifications/{notification_id}/read', [NotificationController::class,'markAsRead']);
   }
 );

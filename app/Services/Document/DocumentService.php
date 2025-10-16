@@ -4,11 +4,19 @@ namespace App\Services\Document;
 
 use App\Models\Document\Document;
 use App\Models\ServiceOrder\ServiceOrder;
+use App\Services\Notification\NotificationService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentService
 {
+
+  protected $notificationService, $noteService;
+
+  public function __construct(NotificationService $notificationService)
+  {
+    $this->notificationService = $notificationService;
+  }
 
   public function getAll($padreId, $modelo)
   {
@@ -89,5 +97,67 @@ class DocumentService
         "data" => []
       ];
     }
+  }
+
+  public function approveDocument(int $documentId)
+  {
+    $document = Document::find($documentId);
+
+    if (!$document) {
+      return [
+        "error" => true,
+        "code" => 404,
+        "message" => "Documento no encontrado",
+      ];
+    }
+
+    $document->update(['status_id' => 2]);
+
+    $professional = $document->documentable->professional;
+
+    if ($professional) {
+      $paramsNotification = [
+        'document_number' => $document->id,
+      ];
+      $this->notificationService->create($professional->id, 'documento_aceptado', $paramsNotification);
+    }
+
+    return [
+      "error" => false,
+      "code" => 200,
+      "message" => "Documento aprobado exitosamente",
+      "data" => $document,
+    ];
+  }
+
+  public function rejectDocument(int $documentId)
+  {
+    $document = Document::find($documentId);
+
+    if (!$document) {
+      return [
+        "error" => true,
+        "code" => 404,
+        "message" => "Documento no encontrado",
+      ];
+    }
+
+    $document->update(['status_id' => 3]);
+
+    $professional = $document->documentable->professional;
+
+    if ($professional) {
+      $paramsNotification = [
+        'document_number' => $document->id,
+      ];
+      $this->notificationService->create($professional->id, 'documento_rechazado', $paramsNotification);
+    }
+
+    return [
+      "error" => false,
+      "code" => 200,
+      "message" => "Documento rechazado exitosamente",
+      "data" => $document,
+    ];
   }
 }

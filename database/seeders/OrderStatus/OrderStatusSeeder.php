@@ -12,8 +12,9 @@ class OrderStatusSeeder extends Seeder
     $statuses = [
       ['name' => 'Sin programar'],
       ['name' => 'Por confirmar'],
-      ['name' => 'Programado'],
-      ['name' => 'Ejecutado'],
+      ['name' => 'Programada'],
+      ['name'=> 'Aplazada'],
+      ['name' => 'Ejecutada'],
       ['name' => 'Pendiente Soporte'],
       ['name' => 'Por facturar'],
     ];

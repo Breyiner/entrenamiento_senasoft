@@ -17,19 +17,22 @@ class StoreServiceOrderRequest extends FormRequest
   public function rules(): array
   {
     return [
+      'recepcionist_id' => 'required|exists:users,id',
       'client_id' => 'required|exists:users,id',
       'professional_id' => 'required|exists:users,id',
       'activity_id' => 'required|exists:activities,id',
       'date' => 'required|date',
       'hours' => 'required|integer|min:1',
       'observations' => 'nullable|string|max:1000',
-      'status_id' => 'required|exists:order_statuses,id',
     ];
   }
 
   public function messages(): array
   {
     return [
+      'recepcionist_id.required' => 'El cliente es obligatorio.',
+      'recepcionist_id.exists' => 'El cliente seleccionado no existe.',
+
       'client_id.required' => 'El cliente es obligatorio.',
       'client_id.exists' => 'El cliente seleccionado no existe.',
 
@@ -48,22 +51,19 @@ class StoreServiceOrderRequest extends FormRequest
 
       'observations.string' => 'Las observaciones deben ser texto.',
       'observations.max' => 'Las observaciones no deben superar los 1000 caracteres.',
-
-      'status_id.required' => 'El estado es obligatorio.',
-      'status_id.exists' => 'El estado seleccionado no existe.',
     ];
   }
 
   public function attributes(): array
   {
     return [
+      'recepcionist_id' => 'recepcionista',
       'client_id' => 'cliente',
       'professional_id' => 'profesional',
       'activity_id' => 'actividad',
       'date' => 'fecha',
       'hours' => 'cantidad de horas',
       'observations' => 'observaciones',
-      'status_id' => 'estado',
     ];
   }
 }

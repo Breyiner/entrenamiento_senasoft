@@ -17,6 +17,7 @@ class PartialUpdateServiceOrderRequest extends FormRequest
   public function rules(): array
   {
     return [
+      'recepcionist_id' => 'required|exists:users,id',
       'client_id' => 'sometimes|required|exists:users,id',
       'professional_id' => 'sometimes|required|exists:users,id',
       'activity_id' => 'sometimes|required|exists:activities,id',
@@ -30,6 +31,9 @@ class PartialUpdateServiceOrderRequest extends FormRequest
   public function messages(): array
   {
     return [
+      'recepcionist_id.required' => 'El cliente es obligatorio.',
+      'recepcionist_id.exists' => 'El cliente seleccionado no existe.',
+
       'client_id.required' => 'El cliente es obligatorio.',
       'client_id.exists' => 'El cliente seleccionado no existe.',
 
@@ -57,6 +61,7 @@ class PartialUpdateServiceOrderRequest extends FormRequest
   public function attributes(): array
   {
     return [
+      'recepcionist_id' => 'recepcionista',
       'client_id' => 'cliente',
       'professional_id' => 'profesional',
       'activity_id' => 'actividad',

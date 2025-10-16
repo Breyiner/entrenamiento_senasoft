@@ -16,6 +16,7 @@ class ServiceOrder extends Model
   use HasFactory;
 
   protected $fillable = [
+    'recepcionist_id',
     'client_id',
     'professional_id',
     'activity_id',
@@ -35,6 +36,12 @@ class ServiceOrder extends Model
   public function professional()
   {
     return $this->belongsTo(User::class, 'professional_id');
+  }
+
+  // Relación con recepcionista (usuario)
+  public function recepcionist()
+  {
+    return $this->belongsTo(User::class, 'recepcionist_id');
   }
 
   // Relación con actividad

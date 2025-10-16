@@ -60,11 +60,11 @@ class NotificationService
       ],
       'orden_rechazada' => [
         'title' => 'Orden Rechazada',
-        'content' => 'El profesional asignado rechazó la órden' . ($parametros['numero_orden'] ?? ''),
+        'content' => 'El profesional asignado rechazó la órden ' . ($parametros['numero_orden'] ?? ''),
       ],
       'orden_aplazada' => [
         'title' => 'Orden Aplazada',
-        'content' => 'El profesional' . ($parametros['profesional'] ?? '') . ', aplazó la órden #' . ($parametros['numero_orden'] ?? ''),
+        'content' => 'El profesional ' . ($parametros['profesional'] ?? '') . ', aplazó la órden #' . ($parametros['numero_orden'] ?? ''),
       ],
       'orden_reasignada' => [
         'title' => 'Orden Reasignada',
@@ -72,15 +72,15 @@ class NotificationService
       ],
       'documento_rechazado' => [
         'title' => 'Documento Rechazado',
-        'content' => 'El documento cargado en la órden' . ($parametros['numero_orden'] ?? '') . 'fué rechazado'
+        'content' => 'El documento cargado en la órden ' . ($parametros['numero_orden'] ?? '') . ' ,fué rechazado'
       ],
       'documento_aceptado' => [
         'title' => 'Documento Aceptado',
-        'content' => 'El documento cargado en la órden' . ($parametros['numero_orden'] ?? '') . 'fué aceptado'
+        'content' => 'El documento cargado en la órden #' . ($parametros['numero_orden'] ?? '') . ' fué aceptado'
       ],
       'orden_lista' => [
         'title' => 'Órden Lista Para Facturar',
-        'content' => 'La órden #' . ($parametros['numero_orden'] ?? '') . 'que se te asignó ya está lista para facturar',
+        'content' => 'La órden #' . ($parametros['numero_orden'] ?? '') . ' que se te asignó ya está lista para facturar',
       ],
     ];
 
@@ -115,7 +115,7 @@ class NotificationService
         'message' => 'Esta notificación no existe'
       ];
 
-    $notificacion::update(['read' => true]);
+    $notificacion->update(['read' => true]);
 
     return [
       'error' => false,

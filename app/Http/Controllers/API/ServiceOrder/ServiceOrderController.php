@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceOrder\StoreServiceOrderRequest;
 use App\Http\Requests\ServiceOrder\UpdateServiceOrderRequest;
 use App\Http\Requests\ServiceOrder\PartialUpdateServiceOrderRequest;
+use App\Http\Requests\ServiceOrder\PostponeOrderRequest;
+use App\Http\Requests\ServiceOrder\ReassignProfessionalRequest;
 use App\Services\ServiceOrder\ServiceOrderService;
+use Illuminate\Http\Request;
 
 class ServiceOrderController extends Controller
 {
@@ -28,9 +31,29 @@ class ServiceOrderController extends Controller
     return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
   }
 
-  public function show(int $id)
+  public function show(int $orderId)
   {
-    $response = $this->serviceOrderService->getOrder($id);
+    $response = $this->serviceOrderService->getOrder($orderId);
+
+    if ($response['error'])
+      return ResponseFormatter::error($response['message'], $response['code']);
+
+    return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
+  }
+
+  public function showByStatus(int $statusId)
+  {
+    $response = $this->serviceOrderService->getByStatus($statusId);
+
+    if ($response['error'])
+      return ResponseFormatter::error($response['message'], $response['code']);
+
+    return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
+  }
+
+  public function showByProfessional(int $professionalId)
+  {
+    $response = $this->serviceOrderService->getByProfessional($professionalId);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -50,11 +73,23 @@ class ServiceOrderController extends Controller
     return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
   }
 
-  public function update(UpdateServiceOrderRequest $request, int $id)
+  public function postpone(PostponeOrderRequest $request, $orderId)
   {
+
     $data = $request->validated();
 
-    $response = $this->serviceOrderService->updateOrder($data, $id);
+    $response = $this->serviceOrderService->postponeOrder($orderId, $data);
+
+    if ($response['error'])
+      return ResponseFormatter::error($response['message'], $response['code']);
+
+    return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
+
+  }
+
+  public function accept(int $orderId)
+  {
+    $response = $this->serviceOrderService->acceptOrder($orderId);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -62,11 +97,9 @@ class ServiceOrderController extends Controller
     return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
   }
 
-  public function partialUpdate(PartialUpdateServiceOrderRequest $request, int $id)
+  public function reject(int $orderId)
   {
-    $data = $request->validated();
-
-    $response = $this->serviceOrderService->partialUpdateOrder($data, $id);
+    $response = $this->serviceOrderService->rejectOrder($orderId);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);
@@ -74,9 +107,45 @@ class ServiceOrderController extends Controller
     return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
   }
 
-  public function destroy(int $id)
+  public function reassignProfessional(ReassignProfessionalRequest $request, int $orderId)
   {
-    $response = $this->serviceOrderService->deleteOrder($id);
+    $data = $request->validated();
+
+    $response = $this->serviceOrderService->reassignProfessional($orderId, $data);
+
+    if ($response['error'])
+      return ResponseFormatter::error($response['message'], $response['code']);
+
+    return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
+  }
+
+  public function update(UpdateServiceOrderRequest $request, int $orderId)
+  {
+    $data = $request->validated();
+
+    $response = $this->serviceOrderService->updateOrder($data, $orderId);
+
+    if ($response['error'])
+      return ResponseFormatter::error($response['message'], $response['code']);
+
+    return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
+  }
+
+  public function partialUpdate(PartialUpdateServiceOrderRequest $request, int $orderId)
+  {
+    $data = $request->validated();
+
+    $response = $this->serviceOrderService->partialUpdateOrder($data, $orderId);
+
+    if ($response['error'])
+      return ResponseFormatter::error($response['message'], $response['code']);
+
+    return ResponseFormatter::success($response['message'], $response['code'], $response['data']);
+  }
+
+  public function destroy(int $orderId)
+  {
+    $response = $this->serviceOrderService->deleteOrder($orderId);
 
     if ($response['error'])
       return ResponseFormatter::error($response['message'], $response['code']);

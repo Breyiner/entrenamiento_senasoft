@@ -52,4 +52,15 @@ class NotificationController extends Controller
     return ResponseFormatter::success($response['message'], $response['code'], $response['data'] ?? []);
 
   }
+
+  public function markAsRead($notificationId) {
+
+    $response = $this->notificationService->markAsRead($notificationId);
+
+    if ($response['error'])
+      return ResponseFormatter::error($response['message'], $response['code']);
+
+    return ResponseFormatter::success($response['message'], $response['code'], $response['data'] ?? []);
+
+  }
 }

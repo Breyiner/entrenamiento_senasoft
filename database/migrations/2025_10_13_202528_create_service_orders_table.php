@@ -13,6 +13,8 @@ return new class extends Migration
   {
     Schema::create('service_orders', function (Blueprint $table) {
       $table->id();
+      $table->unsignedBigInteger('recepcionist_id');
+      $table->foreign('recepcionist_id')->references('id')->on('users');
       $table->unsignedBigInteger('client_id');
       $table->foreign('client_id')->references('id')->on('users');
       $table->unsignedBigInteger('professional_id');
@@ -22,7 +24,7 @@ return new class extends Migration
       $table->dateTime('date');
       $table->integer('hours');
       $table->text('observations')->nullable();
-      $table->unsignedBigInteger('status_id');
+      $table->unsignedBigInteger('status_id')->default(2);
       $table->foreign('status_id')->references('id')->on('order_statuses');
       $table->timestamps();
     });
