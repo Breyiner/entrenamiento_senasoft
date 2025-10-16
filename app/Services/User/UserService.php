@@ -173,7 +173,7 @@ class UserService
 
       if (isset($data['role_id'])) {
         $authUser = Auth::user();
-        if ($authUser /*&& $authUser->can('users.update-role')*/) {
+        if ($authUser && $authUser->can('users.update-role')) {
           $role = $user->roles()->first();
           if ($role) {
             $user->removeRole($role->name);
@@ -227,7 +227,7 @@ class UserService
 
       if (isset($entryData['role_id'])) {
         $authUser = Auth::user();
-        if ($authUser /*&& $authUser->can('users.update-role')*/) {
+        if ($authUser && $authUser->can('users.update-role')) {
           $role = $user->roles()->first();
           if ($role) {
             $user->removeRole($role->name);

@@ -40,9 +40,9 @@ class AuthService
       ];
     }
 
-    // $profile = $user->profile;
+    $profile = $user->profile;
 
-    // $roleUser = $user->roles->first();
+    $roleUser = $user->roles->first();
 
     // $permissions = $roleUser->permissions;
 
@@ -80,12 +80,13 @@ class AuthService
       "message" => "Logueo exitoso",
       "data" => [
         'id' => $user->id,
-        // 'full_name' => "$profile->first_name $profile->last_name",
-        // 'role_id' => $roleUser->id,
+        'full_name' => $profile->full_name,
+        'role_id' => $roleUser->id,
         // 'permissions' => $permissions->pluck('name'),
         'cookieToken' => $cookieToken,
         'cookieRefreshToken' => $cookieRefreshToken,
         'token' => $accessToken,
+        'refreshToken' => $refreshToken
       ]
     ];
   }
