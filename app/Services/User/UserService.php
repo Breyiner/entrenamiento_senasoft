@@ -17,7 +17,7 @@ class UserService
   public function getAllUsers()
   {
 
-    $users = User::users()->get();
+    $users = User::users()->orderBy('status_id')->get();
 
     if (count($users) == 0)
       return [
@@ -38,7 +38,7 @@ class UserService
 
   public function getAllInformation()
   {
-    $users = User::users()->with(['profile.city', 'profile.gender', 'roles', 'status'])->get();
+    $users = User::users()->with(['profile.city', 'profile.gender', 'roles', 'status'])->orderBy('status_id')->get();
 
     if ($users->isEmpty()) {
       return [

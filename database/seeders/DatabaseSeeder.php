@@ -9,7 +9,9 @@ use Database\Seeders\Client\ClientSeeder;
 use Database\Seeders\DocumentStatus\DocumentStatusSeeder;
 use Database\Seeders\Gender\GenderSeeder;
 use Database\Seeders\OrderStatus\OrderStatusSeeder;
+use Database\Seeders\Permission\PermissionSeeder;
 use Database\Seeders\Role\RoleSeeder;
+use Database\Seeders\RolePermission\RolePermissionSeeder;
 use Database\Seeders\ServiceOrder\ServiceOrderSeeder;
 use Database\Seeders\User\UserSeeder;
 use Database\Seeders\UserStatus\UserStatusSeeder;
@@ -27,6 +29,8 @@ class DatabaseSeeder extends Seeder
 
       UserStatusSeeder::class,
       RoleSeeder::class,
+      PermissionSeeder::class,
+      RolePermissionSeeder::class,
       CitySeeder::class,
       GenderSeeder::class,
       ARLSeeder::class,
@@ -36,6 +40,7 @@ class DatabaseSeeder extends Seeder
       OrderStatusSeeder::class,
       ServiceOrderSeeder::class,
       DocumentStatusSeeder::class,
+
 
     ]);
   }

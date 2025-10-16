@@ -17,7 +17,7 @@ class ClientService
   public function getAllClients()
   {
 
-    $clients = User::clients()->get();
+    $clients = User::clients()->orderBy('status_id')->get();
 
     if (count($clients) == 0)
       return [
@@ -45,7 +45,7 @@ class ClientService
                     'clientProfile.arl',
                     'roles', 
                     'status'
-                  ])->get();
+                  ])->orderBy('status_id')->get();
 
     if ($clients->isEmpty()) {
       return [
